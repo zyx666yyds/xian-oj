@@ -1,10 +1,5 @@
 <template>
-  <a-row
-    id="globalHeader"
-    class="grid-demo"
-    style="margin-bottom: 16px"
-    align="center"
-  >
+  <a-row id="globalHeader" class="grid-demo" align="center" :wrap="false">
     <a-col flex="auto">
       <a-menu
         mode="horizontal"
@@ -21,7 +16,7 @@
             <div class="title">zyx OJ</div>
           </div>
         </a-menu-item>
-        <a-menu-item v-for="item in routes" :key="item.path">
+        <a-menu-item v-for="item in visibleRoutes" :key="item.path">
           {{ item.name }}
         </a-menu-item>
       </a-menu>
@@ -35,9 +30,12 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import { routes } from "@/router/routes";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
+import checkAccess from "@/access/checkAccess";
+import ACCESS_ENUM from "@/access/accessEnum";
 
+const store = useStore();
 const router = useRouter();
 //默认主页
 const selectedKeys = ref(["/"]);
@@ -52,14 +50,28 @@ const doMenuClick = (key: string) => {
   });
 };
 
-// setTimeout(() => {
-//   store.dispatch("user/getLoginUser", {
-//     userName: "zyx",
-//     role: "admin",
-//   });
-// }, 3000);
+//显示菜单的路由数组
+const visibleRoutes = computed(() => {
+  return routes.filter((item, index) => {
+    if (item.meta?.hideInMenu) {
+      return false;
+    }
+    //根据权限过滤菜单
+    if (
+      !checkAccess(store.state.user.loginUser, item?.meta?.access as string)
+    ) {
+      return false;
+    }
+    return true;
+  });
+});
 
-const store = useStore();
+setTimeout(() => {
+  store.dispatch("user/getLoginUser", {
+    userName: "zyx",
+    userRole: ACCESS_ENUM.ADMIN,
+  });
+}, 3000);
 </script>
 
 <style scoped>
