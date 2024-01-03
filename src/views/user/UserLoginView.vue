@@ -7,13 +7,14 @@
       style="max-width: 480px; margin: 0 auto"
       :model="form"
       @submit="handleSubmit"
+      @register="handleRegister"
     >
       <a-form-item field="userAccount" label="用户账号">
-        <a-input v-model="form.userAccount" placeholder="请输入账号." />
+        <a-input v-model="form.userAccount" placeholder="请输入账号" />
       </a-form-item>
       <a-form-item
         field="userPassword"
-        tooltip="密码不少于8位，需数字、字母、符号至少两种"
+        tooltip="密码不少于8位"
         label="用户密码"
       >
         <a-input-password
@@ -24,7 +25,14 @@
 
       <a-form-item>
         <a-button html-type="submit" type="primary" style="width: 120px">
-          登录</a-button
+          登录
+        </a-button>
+        <a-button
+          html-type="register"
+          style="width: 120px"
+          :onclick="handleRegister"
+        >
+          注册</a-button
         >
       </a-form-item>
     </a-form>
@@ -45,6 +53,16 @@ const form = reactive({
   userAccount: "",
   userPassword: "",
 });
+
+//点击注册，跳转到注册页面
+const handleRegister = async () => {
+  await router.push({
+    path: "/user/register",
+    replace: true,
+  });
+};
+
+//处理登录
 const handleSubmit = async () => {
   const res = await UserControllerService.userLogin(form);
   //登录成功，跳转到主页
