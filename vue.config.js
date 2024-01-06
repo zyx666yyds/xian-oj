@@ -6,4 +6,5 @@ module.exports = defineConfig({
   chainWebpack: (config) => {
     config.plugin("monaco").use(new MonacoWebpackPlugin({}));
   },
+  lintOnSave: false,
 });

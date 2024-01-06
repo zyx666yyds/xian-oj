@@ -1,6 +1,9 @@
 import ACCESS_ENUM from "@/access/accessEnum";
 
-const checkAccess = (loginUser, needAccess = ACCESS_ENUM.NOT_LOGIN) => {
+const checkAccess = (
+  loginUser: { userRole: string },
+  needAccess = ACCESS_ENUM.NOT_LOGIN
+) => {
   const loginUserAccess = loginUser.userRole ?? ACCESS_ENUM.NOT_LOGIN;
 
   if (needAccess === ACCESS_ENUM.NOT_LOGIN) {

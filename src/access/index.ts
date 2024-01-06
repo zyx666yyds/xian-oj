@@ -4,8 +4,10 @@ import ACCESS_ENUM from "@/access/accessEnum";
 import checkAccess from "@/access/checkAccess";
 
 router.beforeEach(async (to, from, next) => {
+  //@ts-ignore
   console.log(store.state.user.loginUser);
 
+  // @ts-ignore
   const loginUser = store.state.user.loginUser;
 
   //如果之前未登录，自动登录

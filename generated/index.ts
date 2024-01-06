@@ -19,6 +19,7 @@ export type { BaseResponsePageQuestionVO } from './models/BaseResponsePageQuesti
 export type { BaseResponsePageUser } from './models/BaseResponsePageUser';
 export type { BaseResponsePageUserVO } from './models/BaseResponsePageUserVO';
 export type { BaseResponsePostVO } from './models/BaseResponsePostVO';
+export type { BaseResponseQuestion } from './models/BaseResponseQuestion';
 export type { BaseResponseQuestionVO } from './models/BaseResponseQuestionVO';
 export type { BaseResponseString } from './models/BaseResponseString';
 export type { BaseResponseUser } from './models/BaseResponseUser';

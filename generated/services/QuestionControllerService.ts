@@ -6,6 +6,7 @@ import type { BaseResponseBoolean } from '../models/BaseResponseBoolean';
 import type { BaseResponseLong } from '../models/BaseResponseLong';
 import type { BaseResponsePageQuestion } from '../models/BaseResponsePageQuestion';
 import type { BaseResponsePageQuestionVO } from '../models/BaseResponsePageQuestionVO';
+import type { BaseResponseQuestion } from '../models/BaseResponseQuestion';
 import type { BaseResponseQuestionVO } from '../models/BaseResponseQuestionVO';
 import type { DeleteRequest } from '../models/DeleteRequest';
 import type { QuestionAddRequest } from '../models/QuestionAddRequest';
@@ -128,6 +129,23 @@ requestBody: QuestionAddRequest,
             url: '/question/add',
             body: requestBody,
             mediaType: 'application/json',
+        });
+    }
+
+    /**
+     * @param id 
+     * @returns BaseResponseQuestion OK
+     * @throws ApiError
+     */
+    public static getQuestionById(
+id: number,
+): CancelablePromise<BaseResponseQuestion> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/question/get',
+            query: {
+                'id': id,
+            },
         });
     }
 
