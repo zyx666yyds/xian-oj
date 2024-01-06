@@ -22,13 +22,13 @@
 }
 
 #basicLayout .content {
-  background-color: #42b983;
+  background-color: rgba(47, 41, 41, 0);
   margin-bottom: 16px;
   padding: 30px;
 }
 
 #basicLayout .footer {
-  background-color: aquamarine;
+  background-color: rgba(17, 12, 12, 0);
   padding: 16px;
   position: sticky;
   bottom: 0;
