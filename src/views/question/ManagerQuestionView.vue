@@ -1,5 +1,5 @@
 <template>
-  <div id="managerQuestionView">
+  <div id="manageQuestionView">
     <a-table
       :ref="tableRef"
       :columns="columns"
@@ -7,13 +7,14 @@
       :pagination="{
         showTotal: true,
         pageSize: searchParams.pageSize,
-        current: searchParams.PageNum,
+        current: searchParams.current,
         total,
       }"
+      @page-change="onPageChange"
     >
       <template #optional="{ record }">
         <a-space>
-          <a-button type="primary" @click="doUpdate(record)">修改</a-button>
+          <a-button type="primary" @click="doUpdate(record)"> 修改</a-button>
           <a-button status="danger" @click="doDelete(record)">删除</a-button>
         </a-space>
       </template>
@@ -22,61 +23,54 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { Question, QuestionControllerService } from "../../../generated";
+import { onMounted, ref, watchEffect } from "vue";
+import {
+  // Page_Question_,
+  Question,
+  QuestionControllerService,
+} from "../../../generated";
 import message from "@arco-design/web-vue/es/message";
+import * as querystring from "querystring";
 import { useRouter } from "vue-router";
 
-const show = ref(true);
 const tableRef = ref();
+
 const dataList = ref([]);
 const total = ref(0);
 const searchParams = ref({
   pageSize: 10,
-  PageNum: 1,
+  current: 1,
 });
-
-const router = useRouter();
-
-const doUpdate = (question: Question) => {
-  router.push({
-    path: "/update/question",
-    query: {
-      id: question.id,
-    },
-  });
-};
-
-const doDelete = async (question: Question) => {
-  const res = await QuestionControllerService.deleteQuestion({
-    id: question.id,
-  });
-  if (res.code === 0) {
-    message.success("删除成功");
-    await loadData();
-  } else {
-    message.error("删除失败 " + res.message);
-  }
-};
 
 const loadData = async () => {
   const res = await QuestionControllerService.listQuestionByPage(
     searchParams.value
   );
   if (res.code === 0) {
-    dataList.value = res.data?.records;
-    total.value = res.data?.total;
+    //@ts-ignore
+    dataList.value = res.data.records;
+    //@ts-ignore
+    total.value = res.data.total;
   } else {
-    message.error("加载失败" + message);
+    message.error("加载失败，" + res.message);
   }
 };
 
 /**
- * 页面加载时请求数据
+ * 监听 searchParams 变量，改变时触发页面的重新加载
+ */
+watchEffect(() => {
+  loadData();
+});
+
+/**
+ * 页面加载时，请求数据
  */
 onMounted(() => {
   loadData();
 });
+
+// {id: "1", title: "A+ D", content: "新的题目内容", tags: "["二叉树"]", answer: "新的答案", submitNum: 0,…}
 
 const columns = [
   {
@@ -107,7 +101,6 @@ const columns = [
     title: "通过数",
     dataIndex: "acceptedNum",
   },
-
   {
     title: "判题配置",
     dataIndex: "judgeConfig",
@@ -120,7 +113,6 @@ const columns = [
     title: "用户id",
     dataIndex: "userId",
   },
-
   {
     title: "创建时间",
     dataIndex: "createTime",
@@ -130,4 +122,39 @@ const columns = [
     slotName: "optional",
   },
 ];
+
+const onPageChange = (page: number) => {
+  searchParams.value = {
+    ...searchParams.value,
+    current: page,
+  };
+};
+
+const doDelete = async (question: Question) => {
+  const res = await QuestionControllerService.deleteQuestion({
+    id: question.id,
+  });
+  if (res.code === 0) {
+    message.success("删除成功");
+    loadData();
+  } else {
+    message.error("删除失败");
+  }
+};
+
+const router = useRouter();
+
+const doUpdate = (question: Question) => {
+  router.push({
+    path: "/update/question",
+    query: {
+      id: question.id,
+    },
+  });
+};
 </script>
+
+<style scoped>
+#manageQuestionView {
+}
+</style>

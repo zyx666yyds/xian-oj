@@ -22,7 +22,7 @@
       </a-menu>
     </a-col>
     <a-col flex="100px">
-      <div>{{ store.state.user.loginUser.userName }}</div>
+      <div>{{ store.state.user?.loginUser?.userName ?? "未登录"}}</div>
     </a-col>
   </a-row>
 </template>
@@ -71,7 +71,8 @@ setTimeout(() => {
     userName: "zyx",
     userRole: ACCESS_ENUM.ADMIN,
   });
-}, 3000);
+}, 0);
+
 </script>
 
 <style scoped>
