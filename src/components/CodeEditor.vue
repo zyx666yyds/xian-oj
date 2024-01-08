@@ -31,19 +31,18 @@ const props = withDefaults(defineProps<Props>(), {
 const codeEditorRef = ref();
 const codeEditor = ref();
 
+/**
+ * 通过监听来动态的修改编程语言
+ */
 watch(
   () => props.language,
   () => {
-    codeEditor.value = monaco.editor.create(codeEditorRef.value, {
-      value: props.value,
-      language: props.language,
-      automaticLayout: true,
-      colorDecorators: true,
-      theme: "vs-dark",
-      minimap: {
-        enabled: true,
-      },
-    });
+    if (codeEditor.value) {
+      monaco.editor.setModelLanguage(
+        toRaw(codeEditor.value).getModel(),
+        props.language
+      );
+    }
   }
 );
 
