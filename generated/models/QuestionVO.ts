@@ -8,7 +8,7 @@ import type { UserVO } from './UserVO';
 
 export type QuestionVO = {
     id?: number;
-    title?: Array<string>;
+    title?: string;
     content?: string;
     tags?: Array<string>;
     submitNum?: number;

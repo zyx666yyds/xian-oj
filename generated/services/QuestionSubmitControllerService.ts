@@ -14,6 +14,7 @@ import { request as __request } from '../core/request';
 export class QuestionSubmitControllerService {
 
     /**
+     * @deprecated
      * @param requestBody 
      * @returns BaseResponsePageQuestionSubmitVO OK
      * @throws ApiError
@@ -30,6 +31,7 @@ requestBody: QuestionSubmitQueryRequest,
     }
 
     /**
+     * @deprecated
      * @param requestBody 
      * @returns BaseResponseLong OK
      * @throws ApiError

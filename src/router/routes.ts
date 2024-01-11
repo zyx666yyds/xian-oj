@@ -17,6 +17,8 @@ import ManagerQuestionView from "@/views/question/ManagerQuestionView";
 import QuestionsView from "@/views/question/QuestionsView";
 // @ts-ignore
 import ViewQuestionsView from "@/views/question/ViewQuestionsView";
+// @ts-ignore
+import QuestionSubmitView from "@/views/question/QuestionSubmitView";
 
 export const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +45,11 @@ export const routes: Array<RouteRecordRaw> = [
     path: "/questions",
     name: "浏览题目",
     component: QuestionsView,
+  },
+  {
+    path: "/question_submit",
+    name: "浏览提交题目",
+    component: QuestionSubmitView,
   },
   {
     path: "/view/question/:id",

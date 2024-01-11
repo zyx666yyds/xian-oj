@@ -76,7 +76,6 @@
 import {
   QuestionControllerService,
   QuestionSubmitAddRequest,
-  QuestionSubmitControllerService,
   QuestionVO,
 } from "../../../generated";
 import { ref, withDefaults, onMounted } from "vue";
@@ -125,7 +124,7 @@ const doSubmit = async () => {
     return;
   }
 
-  const res = await QuestionSubmitControllerService.doQuestionSubmit({
+  const res = await QuestionControllerService.doQuestionSubmit1({
     ...form.value,
     questionId: question.value.id,
   });
@@ -135,7 +134,6 @@ const doSubmit = async () => {
     message.error("提交失败," + res.message);
   }
 };
-
 
 const changeCode = (code: string) => {
   form.value.code = code;
