@@ -33,7 +33,9 @@
             </a-card>
           </a-tab-pane>
           <a-tab-pane key="comment" title="评论" disabled> 评论区</a-tab-pane>
-          <a-tab-pane key="answer" title="答案"> 暂时无法查看答案</a-tab-pane>
+          <a-tab-pane key="answer" title="答案">
+            答案暂未开放
+          </a-tab-pane>
         </a-tabs>
       </a-col>
       <a-col :md="12" :xs="24">
@@ -59,7 +61,7 @@
           </a-form-item>
         </a-form>
         <CodeEditor
-          :value="form.code as string"
+          :value="form.code"
           :language="form.language"
           :handle-change="changeCode"
         />
