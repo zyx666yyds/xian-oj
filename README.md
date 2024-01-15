@@ -18,6 +18,7 @@
 微服务网关地址为http://localhost:8101/api
 ```
 
+![image](https://github.com/zyx666yyds/xian-oj/assets/94099079/5e15f472-5a8c-45da-97fd-55fbe14b2467)
 
 ## 快速根据后端接口生成前端axios代码
 ```
