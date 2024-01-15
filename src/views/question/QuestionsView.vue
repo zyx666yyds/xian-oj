@@ -33,7 +33,11 @@
       <template #acRate="{ record }">
         通过率
         {{
-          `${record.submitNum ? record.acceptedNum / record.submitNum : "0"}
+          `${
+            record.submitNum
+              ? Number(record.acceptedNum / record.submitNum).toFixed(3) * 100
+              : "0"
+          }
           % (${record.acceptedNum}/${record.submitNum})`
         }}
       </template>
