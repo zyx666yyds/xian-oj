@@ -35,7 +35,7 @@
         {{
           `${
             record.submitNum
-              ? Number(record.acceptedNum / record.submitNum).toFixed(3) * 100
+              ? Number(record.acceptedNum / record.submitNum).toFixed(2) * 100
               : "0"
           }
           % (${record.acceptedNum}/${record.submitNum})`

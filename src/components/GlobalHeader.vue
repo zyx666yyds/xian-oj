@@ -13,7 +13,7 @@
         >
           <div class="titleBar">
             <img class="logo" src="../assets/zyx.png" />
-            <div class="title">zyx OJ</div>
+            <div class="title">xianOJ</div>
           </div>
         </a-menu-item>
         <a-menu-item v-for="item in visibleRoutes" :key="item.path">
